@@ -1,7 +1,7 @@
 /*
  * Created on Wed Apr 08 2020
  *
- * Copyright (c) RayTracer 2020 Arthur Lang
+ * Copyright (c) MathLib 2020 Arthur Lang
  * Point2D.hpp
  */
 

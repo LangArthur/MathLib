@@ -1,7 +1,7 @@
 /*
  * Created on Wed Apr 08 2020
  *
- * Copyright (c) Raytracer 2020 Arthur Lang
+ * Copyright (c) MathLib 2020 Arthur Lang
  * Point3D.hpp
  */
 
@@ -64,11 +64,11 @@ namespace math {
                 return res;
             }
 
-            Eigen::Vector3d convert() const
-            {
-                Eigen::Vector3d res(_x, _y, _z);
-                return res;
-            }
+            // Eigen::Vector3d convert() const
+            // {
+            //     Eigen::Vector3d res(_x, _y, _z);
+            //     return res;
+            // }
 
         private:
             T _x;
@@ -76,19 +76,19 @@ namespace math {
             T _z;
     };
 
-    template<typename T>
-    static Eigen::Vector3f toVector(const Point3D<T> &fst, const Point3D<T> &sec)
-    {
-        Eigen::Vector3f v(sec.x() - fst.x(), sec.y() - fst.y(), sec.z() - fst.z());
-        return v;
-    }
+    // template<typename T>
+    // static Eigen::Vector3f toVector(const Point3D<T> &fst, const Point3D<T> &sec)
+    // {
+    //     Eigen::Vector3f v(sec.x() - fst.x(), sec.y() - fst.y(), sec.z() - fst.z());
+    //     return v;
+    // }
 
-    template<typename T>
-    static Eigen::Vector3f toVector(const Point3D<T> &pt)
-    {
-        Eigen::Vector3f v (pt.x(), pt.y(), pt.z());
-        return v;
-    }
+    // template<typename T>
+    // static Eigen::Vector3f toVector(const Point3D<T> &pt)
+    // {
+    //     Eigen::Vector3f v (pt.x(), pt.y(), pt.z());
+    //     return v;
+    // }
 
     template<typename T>
     std::ostream &operator<<(std::ostream &os, const Point3D<T> &toDisp)
