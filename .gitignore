@@ -33,3 +33,4 @@
 
 # Build
 build/
+tests/unit_test
