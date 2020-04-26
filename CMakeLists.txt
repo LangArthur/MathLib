@@ -16,7 +16,10 @@ enable_testing()
 set(CMAKE_CXX_FLAGS "-W -Wall -fprofile-arcs -ftest-coverage")
 
 ## Compile math librairie
-add_library(libmath INTERFACE)
+add_library(libmath STATIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point2D.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3D.hpp
+)
 
 ## General sources
 target_sources(libmath INTERFACE
@@ -28,6 +31,12 @@ target_sources(libmath INTERFACE
 target_include_directories(libmath INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+set_target_properties(libmath PROPERTIES LINKER_LANGUAGE CXX)
+
+export(
+    TARGETS libmath
+    FILE BLibraryConfig.cmake)
 
 set(SRC_EXEC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
