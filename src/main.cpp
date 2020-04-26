@@ -5,7 +5,7 @@
  * main.cpp
  */
 
-#include "Point3D.hpp"
+#include "Point3.hpp"
 
 // This main purpose is only testing
 int main()

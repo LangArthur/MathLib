@@ -15,16 +15,20 @@ enable_testing()
 
 set(CMAKE_CXX_FLAGS "-W -Wall -fprofile-arcs -ftest-coverage")
 
+set(SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point2.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Vector3.hpp
+)
+
 ## Compile math librairie
 add_library(libmath STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point2D.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3D.hpp
+    ${SRC}
 )
 
 ## General sources
 target_sources(libmath INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point2D.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3D.hpp
+    ${SRC}
 )
 
 ## Include headers to librairie
