@@ -53,7 +53,7 @@ namespace math
                 return squaredNorm() > other.squaredNorm();
             }
 
-            bool operator>(const Vector3<T> &other)
+            bool operator>=(const Vector3<T> &other)
             {
                 return squaredNorm() >= other.squaredNorm();
             }
