@@ -5,10 +5,14 @@
  * main.cpp
  */
 
-#include "Point3.hpp"
+#include <iostream>
+
+#include "Matrix.hpp"
 
 // This main purpose is only testing
 int main()
 {
+    math::Matrix<float> m(3u, 3u);
+    std::cout << m << std::endl;
     return 0;
 }

@@ -19,6 +19,7 @@ set(SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Point2.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Vector3.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Matrix.hpp
 )
 
 ## Compile math librairie
