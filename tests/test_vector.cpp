@@ -14,7 +14,7 @@ TEST(TestVector, vectorInitialisation) {
     testing::internal::CaptureStdout();
 
     math::Vector3f a(1, 1, 1);
-    math::Vector3f b(a);
+    math::Vector3<float> b(a);
     math::Vector3i c(1, 3, 3);
     math::Vector3i d(-1, 3, -3);
 
@@ -31,7 +31,7 @@ TEST(TestVector, vectorInitialisation) {
 
 TEST(TestVector, assertion) {
     math::Vector3i a(2, 4, 6);
-    math::Vector3i b(2, 4, 6);
+    math::Vector3<int> b(2, 4, 6);
     math::Vector3i c(6, 4, 8);
     math::Vector3i d(6, 10, 3);
 
@@ -54,4 +54,13 @@ TEST(TestVector, operation) {
 
     ASSERT_EQ(sum,  math::Vector3i(8, 9, 7));
     ASSERT_EQ(dif, math::Vector3i(-4, 1, 3));
+}
+
+TEST(TestVector, normlization) {
+    math::Vector3f a(0, 3, 4);
+    a.normalize();
+    ASSERT_EQ(a, math::Vector3f(0, 0.6, 0.8));
+    math::Vector3i b(0, 3, 4);
+    b.normalize();
+    ASSERT_EQ(b, math::Vector3i(0, 0, 0));
 }

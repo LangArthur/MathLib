@@ -8,6 +8,7 @@
 #pragma once
 
 #include <cmath>
+#include <exception>
 #include <iostream>
 
 namespace math
@@ -64,7 +65,13 @@ namespace math
             }
 
             void normalize() {
-
+                float vecNorm = norm();
+                if (vecNorm != 0) {
+                    _x /= vecNorm;
+                    _y /= vecNorm;
+                    _z /= vecNorm;
+                } else
+                    throw std::logic_error("Error: cannot normalize a vector of norm = 0");
             }
 
         private:
