@@ -10,6 +10,7 @@
 #include <cmath>
 #include <exception>
 #include <iostream>
+#include <cmath>
 
 namespace math
 {
@@ -20,6 +21,17 @@ namespace math
         public:
             Vector3(T x, T y, T z) : _x(x), _y(y), _z(z) { }
             Vector3(const Vector3<T> &other) : _x(other.x()), _y(other.y()), _z(other.z()) { }
+            Vector3(std::initializer_list<T> l) {
+                if (l.size() == 3) {
+                    auto i = l.begin();
+                    _x = (*i);
+                    i++;
+                    _y = (*i);
+                    i++;
+                    _z = (*i);
+                } else
+                    throw std::runtime_error("Invalid number of element to build math::Vector3");
+            };
             ~Vector3() = default;
 
             inline const T x() const { return _x; }
@@ -28,7 +40,7 @@ namespace math
 
             inline float norm() const { return std::sqrt(std::pow(_x, 2) + std::pow(_y, 2) + std::pow(_z, 2)); }
             inline float squaredNorm() const { return std::pow(_x, 2) + std::pow(_y, 2) + std::pow(_z, 2); }
-            inline float dot(const Vector3<T> other) { return _x * other.x() + _y * other.y() + _z * other.z(); }
+            inline T dot(const Vector3<T> other) { return _x * other.x() + _y * other.y() + _z * other.z(); }
 
             bool operator==(const Vector3<T> &other) { 
                 return(_x == other.x() && _y == other.y() && _z == other.z());
@@ -94,5 +106,22 @@ namespace math
     {
         os << "(" << toDisp.x() << "," << toDisp.y() << "," << toDisp.z() << ")";
         return os;
+    }
+
+    namespace Vector {
+        template<typename T>
+        T dot(const Vector3<T> &a, const Vector3<T> &b) {
+            return (a.x() * b.x() + a.y() * b.y() + a.z() * b.z());
+        }
+
+        template<typename T>
+        bool areOrthogonal(const Vector3<T> &a, const Vector3<T> &b) {
+            return dot(a, b) == 0;
+        }
+
+        template<typename T>
+        float angle(const Vector3<T> &a, const Vector3<T> &b) {
+            return std::acos(dot(a, b) / (a.norm() * b.norm()));
+        }        
     }
 }

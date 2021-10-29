@@ -17,16 +17,19 @@ TEST(TestVector, vectorInitialisation) {
     math::Vector3<float> b(a);
     math::Vector3i c(1, 3, 3);
     math::Vector3i d(-1, 3, -3);
+    math::Vector3i e({4, 2, -3});
 
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << c << std::endl;
     std::cout << d << std::endl;
+    std::cout << e << std::endl;
     auto output = splitOutput(testing::internal::GetCapturedStdout());
     ASSERT_EQ(output[0], "(1,1,1)");
     ASSERT_EQ(output[1], "(1,1,1)");
     ASSERT_EQ(output[2], "(1,3,3)");
     ASSERT_EQ(output[3], "(-1,3,-3)");
+    ASSERT_EQ(output[4], "(4,2,-3)");
 }
 
 TEST(TestVector, assertion) {
@@ -63,4 +66,22 @@ TEST(TestVector, normlization) {
     math::Vector3i b(0, 3, 4);
     b.normalize();
     ASSERT_EQ(b, math::Vector3i(0, 0, 0));
+}
+
+TEST(TestVector, dotproduct) {
+    math::Vector3f a(1, 1, 1);
+    math::Vector3<float> b(a);
+    math::Vector3i c(1, 3, 3);
+    math::Vector3i d(-1, 3, -3);
+    math::Vector3i e({4, 2, -3});
+    ASSERT_EQ(math::Vector::dot(a, b), 3);
+    ASSERT_EQ(math::Vector::dot(c, e), 1);
+}
+
+TEST(TestVector, angle) {
+    math::Vector3f a(2, 5, 3);
+    math::Vector3f b(2, 2, 4);
+    math::Vector3f c(2, 5, 3);
+    ASSERT_EQ(math::Vector::angle(a, b), static_cast<float>(std::acos(0.860946)));
+    ASSERT_EQ(math::Vector::angle(a, c), 0);
 }
