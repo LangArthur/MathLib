@@ -57,6 +57,8 @@ target_link_libraries(mathlib_test libmath)
 ## Test sources
 set (SRC_TEST
     tests/main.cpp
+    tests/utils.cpp
+    tests/test_vector.cpp
 )
 
 ## including google test library
@@ -65,8 +67,11 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ../tests)
 
 ## Creating executable of unit tests
 add_executable(unit_tests
-    ${SRC}
     ${SRC_TEST}
+)
+
+target_include_directories(unit_tests PRIVATE
+    tests/
 )
 
 ## Linking libraries to street
@@ -74,4 +79,5 @@ target_link_libraries(unit_tests PUBLIC
     CONAN_PKG::gtest
     ${CMAKE_THREAD_LIBS_INIT}
     ${CMAKE_DL_LIBS}
+    libmath
 )
