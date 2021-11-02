@@ -76,6 +76,12 @@ namespace math
                 return res;
             }
 
+            Vector3<T> operator*(const Vector3<T> &other) {
+                return (Vector3<T>(_y * other.z() - _z * other.y(),
+                                   _z * other.x() - _x * other.z(),
+                                   _x * other.y() - _y * other.x()));
+            }
+
             void normalize() {
                 float vecNorm = norm();
                 if (vecNorm != 0) {
@@ -122,6 +128,13 @@ namespace math
         template<typename T>
         float angle(const Vector3<T> &a, const Vector3<T> &b) {
             return std::acos(dot(a, b) / (a.norm() * b.norm()));
-        }        
+        }
+
+        template<typename T>
+        Vector3<T> crossPorduct(const Vector3<T> &a, const Vector3<T> &b) {
+            return (Vector3<T>(a.y() * b.z() - a.z() * b.y(),
+                               a.z() * b.x() - a.x() * b.z(),
+                               a.x() * b.y() - a.y() * b.x()));
+        }
     }
 }
