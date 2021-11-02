@@ -20,6 +20,7 @@ set(SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Point3.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Vector3.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Matrix.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/angle.cpp
 )
 
 ## Compile math librairie
@@ -41,7 +42,8 @@ set_target_properties(libmath PROPERTIES LINKER_LANGUAGE CXX)
 
 export(
     TARGETS libmath
-    FILE BLibraryConfig.cmake)
+    FILE BLibraryConfig.cmake
+)
 
 set(SRC_EXEC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
@@ -59,6 +61,7 @@ set (SRC_TEST
     tests/main.cpp
     tests/utils.cpp
     tests/test_vector.cpp
+    tests/test_angle.cpp
 )
 
 ## including google test library
