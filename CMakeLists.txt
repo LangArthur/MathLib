@@ -63,6 +63,7 @@ set (SRC_TEST
     tests/utils.cpp
     tests/test_vector.cpp
     tests/test_angle.cpp
+    tests/test_matrix.cpp
 )
 
 ## including google test library

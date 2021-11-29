@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <exception>
 
 namespace math
 {
@@ -20,18 +21,38 @@ namespace math
                 _content.reserve(rowSize * colSize);
                 std::fill(_content.begin(), _content.end(), 0);
             }
+            Matrix(unsigned int rowSize, unsigned int colSize, std::vector<T> data) : _colSize(colSize), _rowSize(rowSize)
+            {
+                if (rowSize * colSize < data.size)
+                    throw std::logic_error("Error: Data to not fit matrix dimensions");
+                _content = data;
+            }
+            Matrix(std::initializer_list<std::initializer_list<T>> l)
+            {
+                _colSize = l.size();
+                _rowSize = 0;
+                // for (const auto &col : l) {
+                //     for (const auto &row : col) {
+                //     }
+                // }
+            }
             ~Matrix() { }
 
             inline const std::vector<T> &rawContent() const { return _content; }
-            inline const std::pair<unsigned int, unsigned int> size() const {return {_rowSize, _colSize}; }
+            inline const std::pair<unsigned int, unsigned int> size() const { return {_rowSize, _colSize}; }
 
             inline T& operator[](int pos) { return _content[pos]; }
+            const inline T& operator[](int pos) const { return _content[pos]; }
 
         private:
             unsigned int _colSize;
             unsigned int _rowSize;
             std::vector<T> _content;
     };
+
+    using Matrixf = Matrix<float>;
+    using Matrixi = Matrix<int>;
+    using Matrixd = Matrix<double>;
 
     template<typename T>
     std::ostream &operator<<(std::ostream &os, const Matrix<T> &mat)

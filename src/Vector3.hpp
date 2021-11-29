@@ -55,11 +55,11 @@ namespace math
             /// \brief compute dot product
             /// \param other the other vector to compute dot product with
             /// \return dot product value
-            inline T dot(const Vector3<T> other) { return _x * other.x() + _y * other.y() + _z * other.z(); }
+            inline T dot(const Vector3<T> other) const { return _x * other.x() + _y * other.y() + _z * other.z(); }
             /// \brief compute cross product
             /// \param other the other vector to compute dot product with
             /// \return cross product value
-            inline Vector3<T> cross(const Vector3<T> other) {
+            inline Vector3<T> cross(const Vector3<T> other) const {
                 return (Vector3<T>(_y * other.z() - _z * other.y(),
                                    _z * other.x() - _x * other.z(),
                                    _x * other.y() - _y * other.x()));
