@@ -93,7 +93,7 @@ TEST(TestVector, crossProduct) {
     math::Vector3f d(1, 0, 0);
 
     ASSERT_EQ(a * b, math::Vector3f(27, -6, -3));
-    ASSERT_EQ(math::Vector::crossPorduct(c, d), math::Vector3f(0, 0, -1));
+    ASSERT_EQ(math::Vector::crossProduct(c, d), math::Vector3f(0, 0, -1));
     ASSERT_EQ(c * d, math::Vector3f(0, 0, -1));
     /// TODO more test
 }

@@ -13,6 +13,7 @@ endif()
 ## Enable Google test library
 enable_testing()
 
+## TODO activate testing flag on parameter
 set(CMAKE_CXX_FLAGS "-W -Wall -fprofile-arcs -ftest-coverage")
 
 set(SRC

@@ -12,6 +12,8 @@
 #include <iostream>
 #include <cmath>
 
+/// \namespace math
+/// \brief Used for the all math lib project
 namespace math
 {
     template <typename T>
@@ -34,12 +36,25 @@ namespace math
             };
             ~Vector3() = default;
 
+            /// \brief getter on x
+            /// \return x value
             inline const T x() const { return _x; }
+            /// \brief getter on y
+            /// \return y value
             inline const T y() const { return _y; }
+            /// \brief getter on z
+            /// \return z value
             inline const T z() const { return _z; }
 
+            /// \brief compute norm of the vector
+            /// \return norm value
             inline float norm() const { return std::sqrt(std::pow(_x, 2) + std::pow(_y, 2) + std::pow(_z, 2)); }
+            /// \brief compute squared norm of the vector
+            /// \return squared norm value
             inline float squaredNorm() const { return std::pow(_x, 2) + std::pow(_y, 2) + std::pow(_z, 2); }
+            /// \brief compute dot product
+            /// \param other the other vector to compute dot product with
+            /// \return dot product value
             inline T dot(const Vector3<T> other) { return _x * other.x() + _y * other.y() + _z * other.z(); }
 
             bool operator==(const Vector3<T> &other) { 
@@ -82,6 +97,7 @@ namespace math
                                    _x * other.y() - _y * other.x()));
             }
 
+            /// \brief normalize the vector
             void normalize() {
                 float vecNorm = norm();
                 if (vecNorm != 0) {
@@ -115,23 +131,39 @@ namespace math
     }
 
     namespace Vector {
+        /// \brief compute dot product between two vectors
+        /// \param a first vector
+        /// \param b secont vector
+        /// \return dot product value of a and b
         template<typename T>
         T dot(const Vector3<T> &a, const Vector3<T> &b) {
             return (a.x() * b.x() + a.y() * b.y() + a.z() * b.z());
         }
 
+        /// \brief Check if two vectors are orthogonal
+        /// \param a first vector
+        /// \param b secont vector
+        /// \return boolean if they are orthogonal or not
         template<typename T>
         bool areOrthogonal(const Vector3<T> &a, const Vector3<T> &b) {
             return dot(a, b) == 0;
         }
 
+        /// \brief compute angle between two vectors
+        /// \param a first vector
+        /// \param b secont vector
+        /// \return value of the angle in radian
         template<typename T>
         float angle(const Vector3<T> &a, const Vector3<T> &b) {
             return std::acos(dot(a, b) / (a.norm() * b.norm()));
         }
 
+        /// \brief compute crossProduct between two vectors
+        /// \param a first vector
+        /// \param b secont vector
+        /// \return value of the cross product
         template<typename T>
-        Vector3<T> crossPorduct(const Vector3<T> &a, const Vector3<T> &b) {
+        Vector3<T> crossProduct(const Vector3<T> &a, const Vector3<T> &b) {
             return (Vector3<T>(a.y() * b.z() - a.z() * b.y(),
                                a.z() * b.x() - a.x() * b.z(),
                                a.x() * b.y() - a.y() * b.x()));

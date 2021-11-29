@@ -7,7 +7,11 @@
 
 #include <cmath>
 
-namespace angle {
+/// \namespace math::angle
+/// \brief Used for angle related functions
+namespace math::angle {
+
     float toRadian(float degree);
     float toDegree(float radian);
-}
+
+} // namespace math::angle

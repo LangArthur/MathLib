@@ -9,10 +9,10 @@
 
 #include <iostream>
 
-float angle::toRadian(float degree) {
+float math::angle::toRadian(float degree) {
     return degree * M_PI / 180.0;
 }
 
-float angle::toDegree(float radian) {
+float math::angle::toDegree(float radian) {
     return radian * 180 / M_PI;
 }
