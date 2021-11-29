@@ -56,6 +56,14 @@ namespace math
             /// \param other the other vector to compute dot product with
             /// \return dot product value
             inline T dot(const Vector3<T> other) { return _x * other.x() + _y * other.y() + _z * other.z(); }
+            /// \brief compute cross product
+            /// \param other the other vector to compute dot product with
+            /// \return cross product value
+            inline Vector3<T> cross(const Vector3<T> other) {
+                return (Vector3<T>(_y * other.z() - _z * other.y(),
+                                   _z * other.x() - _x * other.z(),
+                                   _x * other.y() - _y * other.x()));
+            }
 
             bool operator==(const Vector3<T> &other) { 
                 return(_x == other.x() && _y == other.y() && _z == other.z());
@@ -91,10 +99,10 @@ namespace math
                 return res;
             }
 
-            Vector3<T> operator*(const Vector3<T> &other) {
-                return (Vector3<T>(_y * other.z() - _z * other.y(),
-                                   _z * other.x() - _x * other.z(),
-                                   _x * other.y() - _y * other.x()));
+            Vector3<T> operator*(const Vector3<T> &other) { // FIXME this is not the same as vec1 * vec2
+                return (Vector3<T>(_x * other.x(),
+                                   _y * other.y(),
+                                   _z * other.z()));
             }
 
             /// \brief normalize the vector

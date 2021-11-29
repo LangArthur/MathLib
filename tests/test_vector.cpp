@@ -54,9 +54,11 @@ TEST(TestVector, operation) {
 
     auto sum = a + b;
     auto dif = a - b;
+    auto mul = a * b;
 
     ASSERT_EQ(sum,  math::Vector3i(8, 9, 7));
     ASSERT_EQ(dif, math::Vector3i(-4, 1, 3));
+    ASSERT_EQ(mul, math::Vector3i(12, 20, 10));
 }
 
 TEST(TestVector, normlization) {
@@ -92,8 +94,9 @@ TEST(TestVector, crossProduct) {
     math::Vector3f c(0, 1, 0);
     math::Vector3f d(1, 0, 0);
 
-    ASSERT_EQ(a * b, math::Vector3f(27, -6, -3));
+    ASSERT_EQ(a.cross(b), math::Vector3f(27, -6, -3));
     ASSERT_EQ(math::Vector::crossProduct(c, d), math::Vector3f(0, 0, -1));
-    ASSERT_EQ(c * d, math::Vector3f(0, 0, -1));
+    ASSERT_EQ(c.cross(d), math::Vector3f(0, 0, -1));
+    ASSERT_EQ(d.cross(c), math::Vector3f(0, 0, 1)); // cross product are anticommutative
     /// TODO more test
 }
