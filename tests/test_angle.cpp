@@ -9,16 +9,15 @@
 
 #include "angle.hpp"
 
-// TODO fix this test
 TEST(TestAngle, UnitConvertion) {
     // radian
-    ASSERT_EQ(angle::toRadian(60), M_PI / 3);
-    ASSERT_EQ(angle::toRadian(90), M_PI / 2);
-    ASSERT_EQ(angle::toRadian(360), M_PI * 2);
-    ASSERT_EQ(angle::toRadian(0), 0);
+    ASSERT_FLOAT_EQ(angle::toRadian(60), M_PI / 3);
+    ASSERT_FLOAT_EQ(angle::toRadian(90), M_PI / 2);
+    ASSERT_FLOAT_EQ(angle::toRadian(360), M_PI * 2);
+    ASSERT_FLOAT_EQ(angle::toRadian(0), 0);
     // degree
-    ASSERT_EQ(angle::toDegree(M_PI), 180);
-    ASSERT_EQ(angle::toDegree(0), 0);
-    ASSERT_EQ(angle::toDegree(M_PI / 4), 45);
-    ASSERT_EQ(angle::toDegree(3 * M_PI / 2), 270);
+    ASSERT_FLOAT_EQ(angle::toDegree(M_PI), 180);
+    ASSERT_FLOAT_EQ(angle::toDegree(0), 0);
+    ASSERT_FLOAT_EQ(angle::toDegree(M_PI / 4), 45);
+    ASSERT_FLOAT_EQ(angle::toDegree(3 * M_PI / 2), 270);
 }
