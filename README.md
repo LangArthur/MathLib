@@ -24,3 +24,8 @@ Test are handle with google test. Simply run
 ```
 tests/units_tests
 ```
+
+# Ressources for future
+
+https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/math-operations-on-points-and-vectors
+https://www.youtube.com/watch?v=ujb2CIWE8zY

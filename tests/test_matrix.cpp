@@ -6,6 +6,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <exception>
 
 #include "Matrix.hpp"
 
@@ -13,27 +14,52 @@ TEST(TestMatrix, matrixInitialisation) {
     // testing::internal::CaptureStdout();
 
     math::Matrix<int> empty(3, 3);
-    math::Matrixf a(3., 3.)
+    math::Matrixf a(3, 3);
     math::Matrixi b({
         {1, 1, 1},
         {1, 1, 1},
         {1, 1, 1}
-    })
-    // math::Vector3f a(1, 1, 1);
-    // math::Vector3<float> b(a);
-    // math::Vector3i c(1, 3, 3);
-    // math::Vector3i d(-1, 3, -3);
-    // math::Vector3i e({4, 2, -3});
+    });
+    ASSERT_TRUE(empty.size().first == 3 && empty.size().second == 3);
+    ASSERT_TRUE(a.size().first == 3 && a.size().second == 3);
+    ASSERT_TRUE(b.size().first == 3 && b.size().second == 3);
+}
 
-    // std::cout << a << std::endl;
-    // std::cout << b << std::endl;
-    // std::cout << c << std::endl;
-    // std::cout << d << std::endl;
-    // std::cout << e << std::endl;
-    // auto output = splitOutput(testing::internal::GetCapturedStdout());
-    // ASSERT_EQ(output[0], "(1,1,1)");
-    // ASSERT_EQ(output[1], "(1,1,1)");
-    // ASSERT_EQ(output[2], "(1,3,3)");
-    // ASSERT_EQ(output[3], "(-1,3,-3)");
-    // ASSERT_EQ(output[4], "(4,2,-3)");
+TEST(TestMatrix, accessors) {
+    math::Matrixi a({
+        {1, 2, 3},
+        {2, 1, -1},
+        {2, -4, 1}
+    });
+    ASSERT_EQ(a(2, 1), -4);
+    const auto constVal = a(0, 2);
+    ASSERT_EQ(constVal, 3);
+    // out of bound
+    EXPECT_THROW({
+        try {
+            a(5, 2);
+        }
+        catch (const std::out_of_range &e ) {
+            EXPECT_STREQ( "indexes are out of range", e.what() );
+            throw;
+        }
+    }, std::out_of_range );
+    EXPECT_THROW({
+        try {
+            a(1, 4);
+        }
+        catch (const std::out_of_range &e ) {
+            EXPECT_STREQ( "indexes are out of range", e.what() );
+            throw;
+        }
+    }, std::out_of_range );
+    EXPECT_THROW({
+        try {
+            a(-1, 2);
+        }
+        catch (const std::out_of_range &e ) {
+            EXPECT_STREQ( "indexes are out of range", e.what() );
+            throw;
+        }
+    }, std::out_of_range );
 }

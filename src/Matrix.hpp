@@ -30,19 +30,26 @@ namespace math
             Matrix(std::initializer_list<std::initializer_list<T>> l)
             {
                 _colSize = l.size();
-                _rowSize = 0;
-                // for (const auto &col : l) {
-                //     for (const auto &row : col) {
-                //     }
-                // }
+                _rowSize = l.begin()->size();
+                for (const auto &col : l) {
+                    _content.insert(_content.end(), col);
+                }
             }
             ~Matrix() { }
 
             inline const std::vector<T> &rawContent() const { return _content; }
             inline const std::pair<unsigned int, unsigned int> size() const { return {_rowSize, _colSize}; }
 
-            inline T& operator[](int pos) { return _content[pos]; }
-            const inline T& operator[](int pos) const { return _content[pos]; }
+            inline T& operator()(std::size_t col, std::size_t row) {
+                if (col >= _colSize || row >= _rowSize)
+                    throw std::out_of_range("indexes are out of range");
+                return _content[_rowSize * col + row];
+            }
+            inline const T& operator()(std::size_t col, std::size_t row) const {
+                if (col >= _colSize || col < 0 || row >= _rowSize || row < 0)
+                    throw std::out_of_range("indexes are out of range");
+                return _content[_rowSize * col + row];
+            }
 
         private:
             unsigned int _colSize;
