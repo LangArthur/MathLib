@@ -12,6 +12,8 @@
 
 namespace math
 {
+    // TODO "in computer graphics, we would primarily deal with 4x4 matrices"
+
     template <typename T>
     class Matrix {
 
@@ -24,7 +26,7 @@ namespace math
             Matrix(unsigned int rowSize, unsigned int colSize, std::vector<T> data) : _colSize(colSize), _rowSize(rowSize)
             {
                 if (rowSize * colSize < data.size)
-                    throw std::logic_error("Error: Data to not fit matrix dimensions");
+                    throw std::logic_error("Data to not fit matrix dimensions");
                 _content = data;
             }
             Matrix(std::initializer_list<std::initializer_list<T>> l)
@@ -32,24 +34,89 @@ namespace math
                 _colSize = l.size();
                 _rowSize = l.begin()->size();
                 for (const auto &col : l) {
+                    if (col.size() != _rowSize)
+                        throw std::logic_error("Matrix content do not always have the same dimension");
                     _content.insert(_content.end(), col);
                 }
             }
             ~Matrix() { }
 
+            /// \brief rawContent
+            /// \return a vector containing the matrix's data.
             inline const std::vector<T> &rawContent() const { return _content; }
+            /// \brief size
+            /// \return the dimension of the matrix in a pair.
             inline const std::pair<unsigned int, unsigned int> size() const { return {_rowSize, _colSize}; }
+            /// \brief isSquare
+            /// \return check whether the matrix is squared  
+            inline bool isSquare() const { return _colSize == _rowSize; }
 
-            inline T& operator()(std::size_t col, std::size_t row) {
+            /// \brief operator[]
+            /// no bound checking
+            /// \param idx index of the row
+            /// \return content of a row as a vector
+            inline std::vector<T> operator[](const std::size_t idx) {
+                return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));
+            }
+
+            /// \brief operator[]
+            /// no bound checking
+            /// \param idx index of the row
+            /// \return content of a row as a vector
+            inline const std::vector<T> operator[](const std::size_t idx) const {
+                return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));
+            }
+
+            /// \brief at
+            /// bound checking
+            /// \param idx index of the row
+            /// \return content of a row as a vector
+            inline std::vector<T>at(const std::size_t idx) {
+                if (idx < 0 || idx > _colSize)
+                    throw std::logic_error("indexes are out of range");
+                return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));                
+            }
+            /// \brief at
+            /// bound checking
+            /// \param idx index of the row
+            /// \return content of a row as a vector
+            inline const std::vector<T>at(const std::size_t idx) const {
+                if (idx < 0 || idx > _colSize)
+                    throw std::logic_error("indexes are out of range");
+                return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));                
+            }
+            /// \brief at
+            /// bound checking
+            /// \param col column number
+            /// \param row row number
+            /// \return value at the row and col position
+            inline T& at(std::size_t col, std::size_t row) {
                 if (col >= _colSize || row >= _rowSize)
                     throw std::out_of_range("indexes are out of range");
                 return _content[_rowSize * col + row];
             }
-            inline const T& operator()(std::size_t col, std::size_t row) const {
+            /// \brief at
+            /// bound checking
+            /// \param col column number
+            /// \param row row number
+            /// \return value at the row and col position
+            inline const T& at(std::size_t col, std::size_t row) const {
                 if (col >= _colSize || col < 0 || row >= _rowSize || row < 0)
                     throw std::out_of_range("indexes are out of range");
                 return _content[_rowSize * col + row];
             }
+
+            Matrix<T> operator*(const Matrix<T> &other) {
+                auto otherSize = other.size();
+                if (_colSize != otherSize.second)
+                    throw std::logic_error("Cannot multiply different size matrices");
+                Matrix res(_colSize, otherSize.first);
+                for (int i = 0; i < _colSize; i++) {
+                    for (int j = 0; j < otherSize.first; j++) {
+                    }
+                }
+            }
+
 
         private:
             unsigned int _colSize;
