@@ -58,13 +58,60 @@ namespace math
             inline std::vector<T> operator[](const std::size_t idx) {
                 return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));
             }
-
             /// \brief operator[]
             /// no bound checking
             /// \param idx index of the row
-            /// \return content of a row as a vector
+            /// \return content of a row as a vector.
             inline const std::vector<T> operator[](const std::size_t idx) const {
                 return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));
+            }
+            /// \brief col
+            /// \return return the content of a column as a vector.
+            std::vector<T> col(std::size_t idx) {
+                std::vector<T> res;
+                res.reserve(_colSize);
+                while (idx < _content.size()) {
+                    res.push_back(_content[idx]);
+                    idx += _rowSize;
+                }
+                return res;
+            }
+            /// \brief col
+            /// \return return the content of a column as a vector.
+            const std::vector<T> col(std::size_t idx) const {
+                std::vector<T> res;
+                res.reserve(_colSize);
+                while (idx < _content.size()) {
+                    res.push_back(_content[idx]);
+                    idx += _rowSize;
+                }
+                return res;
+            }
+            /// \brief atCol
+            /// \return return the content of a column as a vector.
+            std::vector<T> atCol(std::size_t idx) {
+                if (idx < 0 || idx > _rowSize)
+                    throw std::out_of_range("indexe is out of range");
+                std::vector<T> res;
+                res.reserve(_colSize);
+                while (idx < _content.size()) {
+                    res.push_back(_content[idx]);
+                    idx += _rowSize;
+                }
+                return res;
+            }
+            /// \brief atCol
+            /// \return return the content of a column as a vector.
+            const std::vector<T> atCol(std::size_t idx) const {
+                if (idx < 0 || idx > _rowSize)
+                    throw std::out_of_range("indexe is out of range");
+                std::vector<T> res;
+                res.reserve(_colSize);
+                while (idx < _content.size()) {
+                    res.push_back(_content[idx]);
+                    idx += _rowSize;
+                }
+                return res;
             }
 
             /// \brief at
@@ -73,7 +120,7 @@ namespace math
             /// \return content of a row as a vector
             inline std::vector<T>at(const std::size_t idx) {
                 if (idx < 0 || idx > _colSize)
-                    throw std::logic_error("indexes are out of range");
+                    throw std::out_of_range("indexe is out of range");
                 return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));                
             }
             /// \brief at
@@ -82,7 +129,7 @@ namespace math
             /// \return content of a row as a vector
             inline const std::vector<T>at(const std::size_t idx) const {
                 if (idx < 0 || idx > _colSize)
-                    throw std::logic_error("indexes are out of range");
+                    throw std::out_of_range("indexe is out of range");
                 return std::vector<T>(_content.begin() + (idx * _rowSize), _content.begin() + ((idx + 1) * _rowSize));                
             }
             /// \brief at
@@ -113,12 +160,20 @@ namespace math
                 Matrix res(_colSize, otherSize.first);
                 for (int i = 0; i < _colSize; i++) {
                     for (int j = 0; j < otherSize.first; j++) {
+                        // res[i][j] = 
                     }
                 }
             }
 
 
         private:
+            T _computeValueMul(const std::vector<T> row, const std::vector<T>col) {
+                T res = 0;
+                for (int i = 0; i < row.size(); i++)
+                    res += row[i] * col[i];
+                return res;
+            }
+
             unsigned int _colSize;
             unsigned int _rowSize;
             std::vector<T> _content;

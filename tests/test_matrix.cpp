@@ -59,6 +59,12 @@ TEST(TestMatrix, accessors) {
     EXPECT_NO_THROW({
         a[2][10];
     });
+    // col accessor
+    ASSERT_EQ(a.col(2), std::vector<int>({3, -1, 1}));
+    ASSERT_EQ(a.col(0), std::vector<int>({1, 2, 2}));
+    EXPECT_NO_THROW({
+        a.col(-1);
+    });
     // at accessor
     ASSERT_EQ(a.at(2), std::vector<int>({2, -4, 1}));
     ASSERT_EQ(a.at(0), std::vector<int>({1, 2, 3}));
@@ -88,6 +94,28 @@ TEST(TestMatrix, accessors) {
         }
         catch (const std::out_of_range &e ) {
             EXPECT_STREQ( "indexes are out of range", e.what() );
+            throw;
+        }
+    }, std::out_of_range );
+    // col accessor
+    ASSERT_EQ(a.atCol(2), std::vector<int>({3, -1, 1}));
+    ASSERT_EQ(a.atCol(0), std::vector<int>({1, 2, 2}));
+    // bound checking
+    EXPECT_THROW({
+        try {
+            a.atCol(23);
+        }
+        catch (const std::out_of_range &e ) {
+            EXPECT_STREQ( "indexe is out of range", e.what() );
+            throw;
+        }
+    }, std::out_of_range );
+    EXPECT_THROW({
+        try {
+            a.atCol(-1);
+        }
+        catch (const std::out_of_range &e ) {
+            EXPECT_STREQ( "indexe is out of range", e.what() );
             throw;
         }
     }, std::out_of_range );
